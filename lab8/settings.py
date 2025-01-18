@@ -75,12 +75,15 @@ WSGI_APPLICATION = 'lab8.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql',
+                'NAME': 'pokedex',
+                'USER': 'postgres',
+                'PASSWORD': 'Pucetec24!',
+                'HOST': 'localhost',
+                'PORT': '5432',
+            }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -128,3 +131,10 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIR = [
     BASE_DIR / 'static'
 ]
+
+MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR / 'media'
+
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
+LOGIN_URL = 'pokedex:login'
