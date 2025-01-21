@@ -1,12 +1,46 @@
 {% extends "base.html" %}
 {% block title %} Entrenadores {% endblock title %}
 {% block content %}
-<h3>Entrenadores</h3>
-<ul class="list-group">
-    {% for trainer in trainers %}
-    <li class="list-group-item">
-        <a href="trainer/{{trainer.id}}">{{ trainer | capfirst }}</a>
-    </li>
-    {% endfor %}
-</ul>
+
+<div class="container">
+    <h3>Entrenadores</h3>
+    {% if user.is_authenticated %}
+        <a href="{% url "pokedex:add_trainer" %}" class="btn btn-primary mb-3"> Añadir Entrenador </a>
+    {% endif %}
+
+    <div class="row">
+        {% for trainer in trainers %}
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="{{ trainer.picture.url }}" class="img-fluid rounded-start" alt="Imagen de {{ trainer.first_name }}">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ trainer | capfirst }}</h5>
+                        <p class="card-text">Nivel: {{ trainer.level }}</p>
+                        <p class="card-text">Edad: {{ trainer.age }}</p>
+
+                        <div>
+                            <a href="trainer/{{ trainer.id }}" class="btn btn-primary">
+                                <i class="fa-solid fa-eye"></i>
+                            </a>
+                            {% if user.is_authenticated %}
+                                <a href="edit_trainer/{{ trainer.id }}" class="btn btn-warning">
+                                    <i class="fa-solid fa-pencil"></i>
+                                </a>
+                                <a href="delete_trainer/{{ trainer.id }}" class="btn btn-danger">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
 {% endblock content %} 
